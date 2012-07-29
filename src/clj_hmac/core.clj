@@ -53,24 +53,22 @@
 (defprotocol IHmacAble
   (hmac [this key alg] [this key]))
 
-(extend-type (class (byte-array []))
-  IHmacAble
+(extend-protocol IHmacAble
+  (class (byte-array []))
   (hmac
     ([this key algorithm]
        (-> (doto (Mac/getInstance algorithm) (.init (SecretKeySpec. key algorithm)))
            (.doFinal this)))
-    ([this key] (hmac this key *default-algorithm*))))
+    ([this key] (hmac this key *default-algorithm*)))
 
-(extend-type String
-  IHmacAble
+  String
   (hmac
     ([this key algorithm]
        (hmac (.getBytes this "UTF-8") key algorithm))
     ([this key]
-       (hmac (.getBytes this "UTF-8") key))))
+       (hmac (.getBytes this "UTF-8") key)))
 
-(extend-type ByteBuffer
-  IHmacAble
+  ByteBuffer
   (hmac
     ([this key algorithm]
        (let [bytes (.remaining this)]
