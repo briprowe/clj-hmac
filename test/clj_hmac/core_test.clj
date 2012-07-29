@@ -12,8 +12,8 @@
      result#))
 
 (defn sign-msg
-  [msg key]
-  (let [msg (-> msg (assoc :algorithm (hmac-algorithm)) (dissoc :signature))
+  [msg key & alg]
+  (let [msg (-> msg (assoc :algorithm (hmac-algorithm alg)) (dissoc :signature))
         sig (hmac (debug (msg-string msg)) key)]
 
     (assoc msg :signature (debug (String. (encode sig) "UTF-8")))))
@@ -25,4 +25,5 @@
         json-decoded (-> msg generate-string (parse-string true))]
 
     (is (= json-decoded msg))
-    (is (= (:signature json-decoded) (:signature (sign-msg json-decoded key))))))
+    (is (= (:signature json-decoded) (:signature (sign-msg json-decoded key
+                                                           (:algorithm json-decoded)))))))

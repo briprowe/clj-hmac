@@ -47,10 +47,8 @@
 
 (defn hmac-algorithm
   "Return a canonical string representing the hash algorithm."
-  ([]
-     (get *hash-algorithms* *default-algorithm*))
-  ([alg]
-     (get *hash-algorithms* alg)))
+  [& alg]
+  (get *hash-algorithms* alg *default-algorithm*))
 
 (defprotocol IHmacAble
   (hmac [this key alg] [this key]))
