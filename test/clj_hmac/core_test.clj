@@ -1,5 +1,6 @@
 (ns clj-hmac.core-test
   (:use clojure.test
+        clj-hmac.msg
         clj-hmac.core
 
         clj-json.core
