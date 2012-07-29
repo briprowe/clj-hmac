@@ -1,10 +1,6 @@
 # clj-hmac
 
-A Clojure library designed to ... well, that part is up to you.
-
-## Usage
-
-FIXME
+A library for cryptographically signing arbitrary Clojure data.
 
 ## License
 
