@@ -29,6 +29,10 @@
   clojure.lang.ISeq
   (msg-string [this]
     (reduce #(str %1 (msg-string %2)) "" this))
+
+  clojure.lang.Seqable
+  (msg-string [this]
+    (msg-string (seq this)))
   
   clojure.lang.IPersistentSet
   (msg-string [this]
