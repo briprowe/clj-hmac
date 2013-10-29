@@ -5,6 +5,9 @@
     "Return a string representation of this object suitable to be HMAC'd."))
 
 (extend-protocol IGenerateHmacMessage
+  nil
+  (msg-string [this] (msg-string ""))
+  
   java.lang.String
   (msg-string [this] this)
 
